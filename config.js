@@ -17,6 +17,7 @@
  * where {filter} is any valid DSL filter for {entityType}, e.g. 'userstories.count==0 and project.isactive==true' for feature.
  *
  * Supported entity types for recalculation:
+ *     - task
  *     - user story
  *     - feature
  *     - epic
@@ -27,6 +28,7 @@ module.exports = {
     defaults: {
         pageSize: 200,
         protocol: 'https',
+        userStoryFilter: 'tasks.count==0',
         featureFilter: 'userstories.count==0',
         epicFilter: 'features.count==0'
     },

@@ -12,6 +12,7 @@ targets.reduce((promise, target) => {
             const calculator = new Calculator(target);
 
             return Promise.resolve()
+                .then(() => calculator.calculateFor('task', target.taskFilter))
                 .then(() => calculator.calculateFor('userStory', target.userStoryFilter))
                 .then(() => calculator.calculateFor('feature', target.featureFilter))
                 .then(() => calculator.calculateFor('epic', target.epicFilter))
