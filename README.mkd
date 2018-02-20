@@ -1,0 +1,9 @@
+# How to use it
+
+1. Install node.js from https://nodejs.org/en/ (Recommended for Most users)
+2. Download this repository as ZIP archive 
+3. Open console, go to the folder with downloaded files and run npm install 
+4. Open config.js and set your host or token
+5. (Optional) Make DB backup
+6. In the console run node index.js
+7. Search in the log for ‘warn’ messages
