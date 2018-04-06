@@ -34,6 +34,9 @@ module.exports = {
     },
     targets: [
         {
+            // protocol: 'http',
+            // host: 'localhost/targetprocess',
+            // token: ''
             host: '{account}.tpondemand.com',
             token: '{token}'
         }

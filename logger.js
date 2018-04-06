@@ -11,9 +11,9 @@ winston.configure({
     ]
 });
 
-function info(message) {
-    console.log(message);
-    winston.info(message);
+function info(message, ...args) {
+    console.log(message, ...args);
+    winston.info(message, ...args);
 }
 
 function error(message, err) {
