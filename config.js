@@ -27,10 +27,17 @@
 module.exports = {
     defaults: {
         pageSize: 200,
-        protocol: 'https',
-        userStoryFilter: 'tasks.count==0',
-        featureFilter: 'userstories.count==0',
-        epicFilter: 'features.count==0'
+        protocol: 'http',
+        taskFilter: 'false',
+        bugFilter: 'false',
+        userStoryFilter: 'false',
+        requestFilter: 'false',
+        featureFilter: 'false',
+        epicFilter: 'false',
+        iterationFilter: 'false',
+        teamIterationFilter: 'false',
+        releaseFilter: 'false',
+        projectFilter: 'false'
     },
     targets: [
         {
