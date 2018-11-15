@@ -27,7 +27,7 @@
 module.exports = {
     defaults: {
         pageSize: 200,
-        protocol: 'http',
+        protocol: 'https',
         taskFilter: 'false',
         bugFilter: 'false',
         userStoryFilter: 'false',
