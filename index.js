@@ -17,6 +17,7 @@ targets.reduce((promise, target) => {
                 .then(() => calculator.calculateFor('userStory', target.userStoryFilter))
                 .then(() => calculator.calculateFor('feature', target.featureFilter))
                 .then(() => calculator.calculateFor('epic', target.epicFilter))
+                .then(() => calculator.calculateFor('portfolioEpic', target.portfolioEpicFilter))
                 .then(() => calculator.calculateFor('request', target.requestFilter))
                 .then(() => calculator.calculateFor('iteration', target.iterationFilter))
                 .then(() => calculator.calculateFor('teamIteration', target.teamIterationFilter))

@@ -34,6 +34,7 @@ module.exports = {
         requestFilter: 'false',
         featureFilter: 'false',
         epicFilter: 'false',
+        portfolioEpicFilter: 'false',
         iterationFilter: 'false',
         teamIterationFilter: 'false',
         releaseFilter: 'false',
