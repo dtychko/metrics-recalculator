@@ -12,6 +12,7 @@ targets.reduce((promise, target) => {
             const calculator = new Calculator(target);
 
             return Promise.resolve()
+                .then(() => calculator.calculateFor('roleEffort', target.roleEffortFilter))
                 .then(() => calculator.calculateFor('task', target.taskFilter))
                 .then(() => calculator.calculateFor('bug', target.bugFilter))
                 .then(() => calculator.calculateFor('userStory', target.userStoryFilter))

@@ -28,6 +28,7 @@ module.exports = {
     defaults: {
         pageSize: 200,
         protocol: 'https',
+        roleEffortFilter: 'false',
         taskFilter: 'false',
         bugFilter: 'false',
         userStoryFilter: 'false',
