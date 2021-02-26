@@ -2,49 +2,68 @@
  * To disable recalculation for {entityType} use
  *     targets: [
  *         {
- *             {entityType}Filter: 'false',
- *             ...
+ *             entityTypes: [
+                {name: '{entityType}', filter: 'false'},
+                .....
+                ]
  *         }
  *     ]
  *
  * To set custom recalculation filter {filter} for {entityType} use
  *     targets: [
  *         {
- *             {entityType}Filter: {filter},
- *             ...
+ *             entityTypes: [
+                {name: '{entityType}', filter: '{filter}'},
+                .....
+                ]
  *         }
  *     ]
  * where {filter} is any valid DSL filter for {entityType}, e.g. 'userstories.count==0 and project.isactive==true' for feature.
- *
- * Supported entity types for recalculation:
- *     - task
- *     - user story
- *     - feature
- *     - epic
- *     - request
+ * if target entityTypes collection is empty or undefined then entityTypes from defaults are used.
  */
 
 module.exports = {
+    /**
+     * when this flag is true recalculator only validates consistency and does not schedule recalculation
+     */
+    validateOnly: true,
     defaults: {
         pageSize: 200,
         protocol: 'https',
-        roleEffortFilter: 'false',
-        taskFilter: 'false',
-        bugFilter: 'false',
-        userStoryFilter: 'false',
-        requestFilter: 'false',
-        featureFilter: 'false',
-        epicFilter: 'false',
-        portfolioEpicFilter: 'false',
-        iterationFilter: 'false',
-        teamIterationFilter: 'false',
-        releaseFilter: 'false',
-        projectFilter: 'false'
+        entityTypes: [
+            {
+                name: 'roleeffort', filter: 'false'
+            }, {
+                name: 'task', filter: 'false'
+            }, {
+                name: 'bug', filter: 'false'
+            }, {
+                name: 'userstory', filter: 'false'
+            }, {
+                name: 'request', filter: 'false'
+            }, {
+                name: 'feature', filter: 'false'
+            }, {
+                name: 'epic', filter: 'false'
+            }, {
+                name: 'portfolioepic', filter: 'false'
+            }, {
+                name: 'iteration', filter: 'false'
+            }, {
+                name: 'teamiteration', filter: 'false'
+            }, {
+                name: 'release', filter: 'false'
+            }, {
+                name: 'project', filter: 'false'
+            }
+        ]
     },
     targets: [
         {
             host: '{account}.tpondemand.com',
-            token: '{token}'
+            token: '',
+            entityTypes: [            
+            ]
         }
     ]
 };

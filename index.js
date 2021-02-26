@@ -1,5 +1,7 @@
 const {
-    targets
+    targets,
+    defaults,
+    validateOnly
 } = require('./config');
 const {info, error} = require('./logger');
 const Calculator = require('./Calculator');
@@ -10,25 +12,36 @@ targets.reduce((promise, target) => {
             info(`Starting recalculation for ${target.host}...`);
 
             const calculator = new Calculator(target);
-
-            return Promise.resolve()
-                .then(() => calculator.calculateFor('roleEffort', target.roleEffortFilter))
-                .then(() => calculator.calculateFor('task', target.taskFilter))
-                .then(() => calculator.calculateFor('bug', target.bugFilter))
-                .then(() => calculator.calculateFor('userStory', target.userStoryFilter))
-                .then(() => calculator.calculateFor('feature', target.featureFilter))
-                .then(() => calculator.calculateFor('epic', target.epicFilter))
-                .then(() => calculator.calculateFor('portfolioEpic', target.portfolioEpicFilter))
-                .then(() => calculator.calculateFor('request', target.requestFilter))
-                .then(() => calculator.calculateFor('iteration', target.iterationFilter))
-                .then(() => calculator.calculateFor('teamIteration', target.teamIterationFilter))
-                .then(() => calculator.calculateFor('release', target.releaseFilter))
-                .then(() => calculator.calculateFor('project', target.projectFilter))
-                .then(() => {
-                    info(`Recalculation completed for ${target.host}`);
-                }, err => {
-                    error(`Unable to complete recalculation for ${target.host}`, err);
+            let entityTypes = [];
+            if (!target.entityTypes || !target.entityTypes.length) {
+                entityTypes = defaults.entityTypes;
+            } else if (target.entityTypes.length > 0) {
+                entityTypes = target.entityTypes.map(et => {
+                    let result = {};
+                    result.name = et.name;
+                    const defaultConfig = defaults.entityTypes.find(e => e.name.toLowerCase() === et.name.toLowerCase());
+                    result.filter = et.filter || defaultConfig.filter || 'true';
+                    return result;
                 });
+            }
+
+            if (validateOnly) {
+                return entityTypes
+                    .reduce((acc, curr) => acc.then(() => calculator.checkFor(curr.name, curr.filter)), Promise.resolve())
+                    .then(() => {
+                        info(`Validation completed for ${target.host}`);
+                    }, err => {
+                        error(`Unable to complete validation for ${target.host}`, err);
+                    })
+            }
+
+            return entityTypes
+                .reduce((acc, curr) => acc.then(() => calculator.calculateFor(curr.name, curr.filter)), Promise.resolve())
+                .then(() => {
+                    info(`Validation completed for ${target.host}`);
+                }, err => {
+                    error(`Unable to complete validation for ${target.host}`, err);
+                })
         });
 }, Promise.resolve())
     .then(() => {
